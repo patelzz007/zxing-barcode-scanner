@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Tab 1 </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <zxing-scanner
+    [torch]="torchEnabled"
+    [(device)]="currentDevice"
+    (scanSuccess)="onCodeResult($event)"
+    [formats]="formatsEnabled"
+    (permissionResponse)="onHasPermission($event)"
+    (camerasFound)="onCamerasFound($event)"
+  >
+  </zxing-scanner>
+
+  <section class="results" *ngIf="qrResultString">
+    <div>
+      <small>Result</small>
+      <strong>{{ qrResultString }}</strong>
+    </div>
+    <button mat-icon-button (click)="clearResult()">&times;</button>
+  </section>
+
+  <ion-button (click)="rescan()">Rescan</ion-button>
+</ion-content>

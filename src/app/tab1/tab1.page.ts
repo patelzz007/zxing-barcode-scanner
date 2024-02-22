@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BarcodeFormat } from '@zxing/library';
-import { BehaviorSubject } from 'rxjs';
 import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 
 @Component({
@@ -11,31 +10,15 @@ import { ZXingScannerComponent } from '@zxing/ngx-scanner';
 export class Tab1Page implements OnInit {
   @ViewChild(ZXingScannerComponent) scanner!: ZXingScannerComponent;
 
-  public allowedFormats = [
-    BarcodeFormat.QR_CODE,
-    BarcodeFormat.EAN_13,
-    BarcodeFormat.CODE_128,
-    BarcodeFormat.DATA_MATRIX /*, ...*/,
-  ];
+  public allowedFormats = [BarcodeFormat.QR_CODE];
 
   public availableDevices: MediaDeviceInfo[] = [];
   public currentDevice!: MediaDeviceInfo;
-
-  public formatsEnabled: BarcodeFormat[] = [
-    BarcodeFormat.CODE_128,
-    BarcodeFormat.DATA_MATRIX,
-    BarcodeFormat.EAN_13,
-    BarcodeFormat.QR_CODE,
-  ];
 
   public hasDevices: boolean = false;
   public hasPermission: boolean = false;
 
   public qrResultString: string | null = null;
-
-  public torchEnabled = false;
-  public torchAvailable$ = new BehaviorSubject<boolean>(false);
-  public tryHarder = false;
 
   constructor() {}
 
@@ -52,7 +35,7 @@ export class Tab1Page implements OnInit {
     this.hasDevices = Boolean(devices && devices.length);
   }
 
-  public onCodeResult(resultString: string) {
+  public onCodeResult(resultString: string): void {
     console.log('onCodeResult', resultString);
     this.qrResultString = resultString;
     if (this.qrResultString) this.scanner.scanStop();
@@ -65,5 +48,9 @@ export class Tab1Page implements OnInit {
 
   public onHasPermission(has: boolean) {
     this.hasPermission = has;
+  }
+
+  public scanError(error: Error) {
+    console.error('scanError', error);
   }
 }

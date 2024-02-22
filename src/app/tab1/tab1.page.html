@@ -1,27 +1,24 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Tab 1 </ion-title>
-  </ion-toolbar>
-</ion-header>
+<h1 class="page-title">QR Code Scanner Example</h1>
 
-<ion-content [fullscreen]="true">
+<div class="scanner-container">
   <zxing-scanner
-    [torch]="torchEnabled"
+    #scanner
+    class="scanner"
+    [autostart]="true"
     [(device)]="currentDevice"
+    [formats]="allowedFormats"
     (scanSuccess)="onCodeResult($event)"
-    [formats]="formatsEnabled"
-    (permissionResponse)="onHasPermission($event)"
-    (camerasFound)="onCamerasFound($event)"
-  >
-  </zxing-scanner>
+    (scanError)="scanError($event)"
+    backgroundColor="red"
+  ></zxing-scanner>
+</div>
 
-  <section class="results" *ngIf="qrResultString">
-    <div>
-      <small>Result</small>
-      <strong>{{ qrResultString }}</strong>
-    </div>
-    <button mat-icon-button (click)="clearResult()">&times;</button>
-  </section>
+<p *ngIf="qrResultString" class="scan-result">
+  Scan Result: {{ qrResultString }}
+</p>
 
-  <ion-button (click)="rescan()">Rescan</ion-button>
-</ion-content>
+<div class="toggle-camera-btn-container">
+  <ion-button (click)="rescan()" class="toggle-camera-btn" mat-flat-button color="primary">
+    Rescan
+  </ion-button>
+</div>

@@ -10,6 +10,9 @@ import { AppComponent } from './app.component';
 // https://stackblitz.com/edit/zxing-ngx-scanner?file=projects%2Fzxing-scanner-demo%2Fsrc%2Fapp%2Fapp-ui.module.ts,projects%2Fzxing-scanner-demo%2Fsrc%2Fapp%2Fapp.component.ts
 // https://www.npmjs.com/package/@zxing/ngx-scanner
 // https://github.com/zxing-js/ngx-scanner
+
+// https://www.thisdot.co/blog/qr-code-scanning-and-generation
+// https://github.com/thisdot/blog-demos
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
